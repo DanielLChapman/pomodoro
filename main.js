@@ -3,6 +3,10 @@ var numBreaks = 0;
 var audioPlaying = false;
 var onBreak = false;
 var audio = new Audio('alert.mp3');
+
+//Start/Stop bool
+var startstop = false;
+
 //work times broken into two digits, timeWorkMinutes, timeWorkSeconds
 var timeWM = [2, 5];
 var timeWS = [0, 0];
@@ -81,76 +85,89 @@ function update() {
 //Actual loop every second.
 
 setInterval(function() {
-    //Update the view
-    $('#minute-one').text(workM[0]);
-    $('#minute-two').text(workM[1]);
-    $('#second-one').text(workS[0]);
-    $('#second-two').text(workS[1]);
+    if (startstop) {
+        //Update the view
+        $('#minute-one').text(workM[0]);
+        $('#minute-two').text(workM[1]);
+        $('#second-one').text(workS[0]);
+        $('#second-two').text(workS[1]);
 
-    //Remove one second
-    workS[1]--;
-    //If that puts the seconds below 0, subtract from the 10 colum and set the last colum to 9
-    if (workS[1] < 0) {
-        workS[1] = 9;
-        workS[0]--;
-        //If this puts the 10 columns below 0, that means a minute has passed, so we adjust accordingly. Subtract the last column of the two minutes
-        //Then set the seconds to 5,9
-        if (workS[0] < 0) {
-            workM[1]--;
+        //Remove one second
+        workS[1]--;
+        //If that puts the seconds below 0, subtract from the 10 colum and set the last colum to 9
+        if (workS[1] < 0) {
             workS[1] = 9;
-            workS[0] = 5;
-            //if we run out of minutes in the last column, then subtract from the 10s column for minutes and set the first column to 9
-            if (workM[1] < 0) {
-                workM[1] = 9;
-                workM[0]--;
-                //If this gets us out of 10s minutes, then congrats, we have officially run out of time!
-                if (workM[0] < 0) {
-                    //Is there audio playing? If not, lets alert the user that the timer is done.
-                    //These freeze the clock so we dont show negative timers
-                    workS = [0, 0];
-                    workM = [0, 0];
-                    if (!audioPlaying) {
-                        //Play the audio, and say that audio is playing.
-                        audio.play(); 
-                        audioPlaying = true;
-                        //The audio is 22seconds long, so after 22 seconds we need to advance the timer.
-                        setTimeout(function() {
-                            //Remove the audio playing filter
-                            audioPlaying = false;
-                            //Check status, whether we just finished a break or work timer.
-                            //If we just finished work, lets go on a break
-                            if (!onBreak) {
-                                //Breaking
-                                onBreak = true;
-                                //Update the view
-                                $("#workbreak").text("Break");
-                                //Update the break counters
-                                numBreaks += 1;
-                                $("#breakNum").text(numBreaks);
-                                //Check to see if this is a long break or a short break, then update the work values accordingly.
-                                if (numBreaks % 3 == 0) {
-                                  workM = timeFM.slice(0);
-                                  workS = timeFS.slice(0);
-                                } else {
-                                  workM = timeBM.slice(0);
-                                  workS = timeBS.slice(0);
-                                }
-                          } else {
-                            //Guess we are back to work, so lets change the boolean to portray that and update the timer and view
-                            onBreak = false;
-                            $("#workbreak").text("Work");
-                            workM = timeWM.slice(0);
-                            workS = timeWS.slice(0);
-                          }
-                          //slice is to not assign by reference but instead to clone the array.
-                        }, 22000);
+            workS[0]--;
+            //If this puts the 10 columns below 0, that means a minute has passed, so we adjust accordingly. Subtract the last column of the two minutes
+            //Then set the seconds to 5,9
+            if (workS[0] < 0) {
+                workM[1]--;
+                workS[1] = 9;
+                workS[0] = 5;
+                //if we run out of minutes in the last column, then subtract from the 10s column for minutes and set the first column to 9
+                if (workM[1] < 0) {
+                    workM[1] = 9;
+                    workM[0]--;
+                    //If this gets us out of 10s minutes, then congrats, we have officially run out of time!
+                    if (workM[0] < 0) {
+                        //Is there audio playing? If not, lets alert the user that the timer is done.
+                        //These freeze the clock so we dont show negative timers
+                        workS = [0, 0];
+                        workM = [0, 0];
+                        if (!audioPlaying) {
+                            //Play the audio, and say that audio is playing.
+                            audio.play(); 
+                            audioPlaying = true;
+                            //The audio is 22seconds long, so after 22 seconds we need to advance the timer.
+                            setTimeout(function() {
+                                //Remove the audio playing filter
+                                audioPlaying = false;
+                                //Check status, whether we just finished a break or work timer.
+                                //If we just finished work, lets go on a break
+                                if (!onBreak) {
+                                    //Breaking
+                                    onBreak = true;
+                                    //Update the view
+                                    $("#workbreak").text("Break");
+                                    //Update the break counters
+                                    numBreaks += 1;
+                                    $("#breakNum").text(numBreaks);
+                                    //Check to see if this is a long break or a short break, then update the work values accordingly.
+                                    if (numBreaks % 3 == 0) {
+                                      workM = timeFM.slice(0);
+                                      workS = timeFS.slice(0);
+                                    } else {
+                                      workM = timeBM.slice(0);
+                                      workS = timeBS.slice(0);
+                                    }
+                              } else {
+                                //Guess we are back to work, so lets change the boolean to portray that and update the timer and view
+                                onBreak = false;
+                                $("#workbreak").text("Work");
+                                workM = timeWM.slice(0);
+                                workS = timeWS.slice(0);
+                              }
+                              //slice is to not assign by reference but instead to clone the array.
+                            }, 22000);
+                        }
                     }
                 }
             }
         }
     }
 }, 1000);
-
+function startPause() {
+      if ($('#start').attr("value") == "1") {
+        startstop = true;
+        $('#start').attr("value", "2");
+        $('#start').text("Pause");
+      } else {
+        startstop = false;
+        $('#start').attr("value", "1");
+        $('#start').text("Start");
+      }
+}
+//Open close functionality with button text changing.
 function openCloseTimers() {
   if ($('#change').attr("value") == "1") {
     $("#custom-timers").show();
@@ -162,6 +179,7 @@ function openCloseTimers() {
     $('#change').text("Change The Timers");
   }
 }
+//Prevent the E key from being pressed on inputs, because that breaks everything.
 $(document).ready(function() {
   $("#custom-timers").hide();
   $("input.timers").bind({

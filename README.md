@@ -15,5 +15,4 @@ Basic level:
 
 Have to do:
 
-* Add Start/Stop
 * Add instruction hover
