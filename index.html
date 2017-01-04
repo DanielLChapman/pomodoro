@@ -1,0 +1,41 @@
+<html>
+    <head>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Kreon|Ubuntu" rel="stylesheet">
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="main.css">
+        <script src="main.js"></script>
+        
+    </head>
+    
+    <body>
+        
+        <div id="timer">
+            <h3 id="workbreak">Work</h3><h3>Number of Breaks Taken: <span id="breakNum">0</span></h3>
+            <div id="left">
+                <div class="number-box"><h3 id="minute-one">2</h3></div>
+                <div class="number-box"><h3 id="minute-two">5</h3></div>
+            </div>
+            <div id="right">
+                <div class="number-box"><h3 id="second-one">0</h3></div>
+                <div class="number-box"><h3 id="second-two">0</h3></div>
+            </div>
+        </div>
+        <div id="custom-timers">
+            <ul id="left-timers">
+                <li>Work Minutes :&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="minutes timers" id="work-input" type="number" name="work-minutes" value="25" min="0" max="99"> Work Seconds :&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="seconds timers" id="work-input-seconds" type="number" name="work-seconds" value="00" min="00" max="59"></li>
+                <li>Break Minutes : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="minutes timers" id="break-input" type="number" name="break-minutes" value="05" min="0" max="99"> Break Seconds :&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="seconds timers" id="break-input-seconds" type="number" name="break-seconds" value="00" min="00" max="59"></li>
+                <li>Long Break Minutes : <input id="longbreak-input" class="minutes timers" type="number" name="longbreak-minutes" value="20" min="0" max="99"> Long Break Seconds : <input class="seconds timers" id="longbreak-input-seconds" type="number" name="longbreak-seconds" value="00" min="00" max="59"></li>
+            </ul>
+            <button id="update-button" onclick="update();">Update Timers</button>
+        </div>
+        <button id="change" onclick="openCloseTimers()" value="1">Change The Timers</button>
+    </body>
+
+</html>
