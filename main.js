@@ -105,7 +105,7 @@ setInterval(function() {
                 workS = timeWS.slice(0);
               }
               //slice is to not assign by reference but instead to clone the array.
-            }, 220);
+            }, 22000);
           }
           workS = [0, 0];
           workM = [0, 0];
@@ -113,7 +113,7 @@ setInterval(function() {
       }
     }
   }
-}, 100);
+}, 1000);
 
 function openCloseTimers() {
   if ($('#change').attr("value") == "1") {
