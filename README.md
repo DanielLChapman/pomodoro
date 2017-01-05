@@ -12,7 +12,3 @@ Basic level:
 * Break for 5 minutes
 * Work for 25 minutes
 * LongBreak for 20 minutes
-
-Have to do:
-
-* Add instruction hover

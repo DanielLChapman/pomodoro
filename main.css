@@ -18,6 +18,36 @@ body {
   text-align: center;
 }
 
+
+.tooltip-r {
+    position: relative;
+    display: relative;
+    color: white;
+    width: 100%;
+    min-height: 50px;
+    height: auto;
+}
+.tooltip-r .tooltiptext {
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    visibility: hidden;
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    width: 120px;
+    top: 20%;
+    background: rgba(0,0,0,.7);
+    left: 50%; 
+    margin-left: -60px; 
+}
+.tooltip-r:hover .tooltiptext {
+    visibility: visible;
+}
+
+
 #left,
 #right {
   width: 49%;
